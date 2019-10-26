@@ -1,9 +1,9 @@
-package edu.nocturne.java.smarthouse.service.business.impl;
+package edu.nocturne.java.smarthouse.service.business.query.impl;
 
 import edu.nocturne.java.smarthouse.dao.DeviceDao;
 import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.dto.DeviceQueryParameters;
-import edu.nocturne.java.smarthouse.service.business.DeviceQueryService;
+import edu.nocturne.java.smarthouse.service.business.query.DeviceQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

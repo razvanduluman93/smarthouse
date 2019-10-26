@@ -1,9 +1,8 @@
-package edu.nocturne.java.smarthouse.service.business.impl;
+package edu.nocturne.java.smarthouse.service.business.command.impl;
 
-import edu.nocturne.java.smarthouse.dao.DeviceEventsDao;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
-import edu.nocturne.java.smarthouse.service.business.DeviceCommandService;
-import edu.nocturne.java.smarthouse.service.business.DeviceEventProcessorChain;
+import edu.nocturne.java.smarthouse.service.business.command.DeviceCommandService;
+import edu.nocturne.java.smarthouse.service.business.command.DeviceEventProcessorChain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
