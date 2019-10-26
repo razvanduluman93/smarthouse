@@ -8,10 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Repository
 public class DeviceEventsDaoImpl implements DeviceEventsDao {
+
+    private static final String REFERENCE = "reference";
+    private static final String HOUSE_REFERENCE = "houseReference";
+    private static final String DEVICE_REFERENCE = "deviceReference";
+    private static final String STATE = "state";
+    private static final String TIMESTAMP = "timestamp";
+    private static final String DEVICE_TYPE = "deviceType";
+    private static final String COMMAND = "command";
+    private static final String DATA = "data";
 
     private final Table table;
 
@@ -23,14 +33,14 @@ public class DeviceEventsDaoImpl implements DeviceEventsDao {
 
     @Override
     public void createDevice(DeviceEvent device) {
-        Item item = new Item().withPrimaryKey("reference", UUID.randomUUID().toString())
-                              .withString("house_reference", device.getHouseReference())
-                              .withString("device_reference", device.getDeviceReference())
-                              .withString("state", device.getState().toString())
-                              .withString("timestamp", device.getTimestamp().toString())
-                              .withString("device_type", device.getDeviceType().toString())
-                              .withString("command", device.getCommand().toString())
-                              .withMap("data", device.getData());
+        Item item = new Item().withPrimaryKey(REFERENCE, UUID.randomUUID().toString())
+                              .withString(TIMESTAMP, ZonedDateTime.now().toString())
+                              .withString(HOUSE_REFERENCE, device.getHouseReference())
+                              .withString(DEVICE_REFERENCE, device.getDeviceReference())
+                              .withString(STATE, device.getState().getValue())
+                              .withString(DEVICE_TYPE, device.getDeviceType().getValue())
+                              .withString(COMMAND, device.getCommand().getValue())
+                              .withMap(DATA, device.getData());
 
         table.putItem(item);
     }

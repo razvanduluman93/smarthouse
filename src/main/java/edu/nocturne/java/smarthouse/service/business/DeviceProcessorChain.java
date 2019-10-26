@@ -1,10 +1,9 @@
 package edu.nocturne.java.smarthouse.service.business;
 
-import edu.nocturne.java.smarthouse.dto.DeviceDTO;
-import edu.nocturne.java.smarthouse.dto.DeviceEventDTO;
+import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 
 public interface DeviceProcessorChain {
 
-    void process(DeviceEventDTO deviceEventDTO);
+    void process(DeviceEvent deviceEvent);
 
 }

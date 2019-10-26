@@ -39,4 +39,9 @@ public class SmarthouseApplication {
         return dynamoDB.getTable("devices");
     }
 
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
+    }
+
 }

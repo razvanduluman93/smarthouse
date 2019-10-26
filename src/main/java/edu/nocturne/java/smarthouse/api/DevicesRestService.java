@@ -1,12 +1,11 @@
 package edu.nocturne.java.smarthouse.api;
 
-import edu.nocturne.java.smarthouse.dto.DeviceEventDTO;
+import edu.nocturne.java.smarthouse.domain.Device;
+import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 import edu.nocturne.java.smarthouse.service.business.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DevicesRestService {
@@ -19,9 +18,14 @@ public class DevicesRestService {
     }
 
     @PutMapping("/devices")
-    public ResponseEntity<Void> sendAction(@RequestBody DeviceEventDTO deviceEventDTO) {
+    public ResponseEntity<Void> sendAction(@RequestBody DeviceEvent deviceEventDTO) {
         deviceService.putDevice(deviceEventDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/devices")
+    public ResponseEntity<Device> getDeviceState(@RequestParam("houseReference") String houseReference, @RequestParam("deviceReference") String deviceReference) {
+        return ResponseEntity.ok(deviceService.getDeviceState(houseReference, deviceReference));
     }
 
 }
