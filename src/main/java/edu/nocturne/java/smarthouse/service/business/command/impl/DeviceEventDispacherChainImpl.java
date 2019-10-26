@@ -2,7 +2,7 @@ package edu.nocturne.java.smarthouse.service.business.command.impl;
 
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 import edu.nocturne.java.smarthouse.service.business.command.DeviceEventProcessor;
-import edu.nocturne.java.smarthouse.service.business.command.DeviceEventProcessorChain;
+import edu.nocturne.java.smarthouse.service.business.command.DeviceEventDispacherChain;
 import edu.nocturne.java.smarthouse.common.type.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,15 +15,15 @@ import java.util.Map;
 import java.util.Optional;
 
 @Component
-public class DeviceEventProcessorChainImpl implements DeviceEventProcessorChain {
+public class DeviceEventDispacherChainImpl implements DeviceEventDispacherChain {
 
     private static final String UNSUPPORTED_OPERATION = "Unsupported operation";
-    private static final Logger logger= LoggerFactory.getLogger(DeviceEventProcessorChainImpl.class);
+    private static final Logger logger= LoggerFactory.getLogger(DeviceEventDispacherChainImpl.class);
 
     private Map<Command, DeviceEventProcessor> deviceEventProcessors = new HashMap<>();
 
     @Autowired
-    public DeviceEventProcessorChainImpl(List<DeviceEventProcessor> deviceEventProcessors) {
+    public DeviceEventDispacherChainImpl(List<DeviceEventProcessor> deviceEventProcessors) {
         deviceEventProcessors.forEach(processor -> this.deviceEventProcessors.put(processor.getCommand(), processor));
     }
 
