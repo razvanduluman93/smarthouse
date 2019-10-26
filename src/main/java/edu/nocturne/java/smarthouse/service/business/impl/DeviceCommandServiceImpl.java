@@ -5,25 +5,21 @@ import edu.nocturne.java.smarthouse.dao.DeviceEventsDao;
 import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 import edu.nocturne.java.smarthouse.service.business.DeviceProcessorChain;
-import edu.nocturne.java.smarthouse.service.business.DeviceService;
-import edu.nocturne.java.smarthouse.service.mapper.DeviceMapper;
+import edu.nocturne.java.smarthouse.service.business.DeviceCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class DeviceServiceImpl implements DeviceService {
+public class DeviceCommandServiceImpl implements DeviceCommandService {
 
     private final DeviceEventsDao deviceEventsDao;
-    private final DeviceDao deviceDao;
     private final DeviceProcessorChain deviceProcessorChain;
 
     @Autowired
-    public DeviceServiceImpl(DeviceEventsDao deviceEventsDao,
-                             DeviceDao deviceDao,
-                             DeviceProcessorChain deviceProcessorChain) {
+    public DeviceCommandServiceImpl(DeviceEventsDao deviceEventsDao,
+                                    DeviceProcessorChain deviceProcessorChain) {
         this.deviceEventsDao = deviceEventsDao;
-        this.deviceDao = deviceDao;
         this.deviceProcessorChain = deviceProcessorChain;
     }
 
@@ -32,11 +28,5 @@ public class DeviceServiceImpl implements DeviceService {
         deviceEventsDao.createDevice(deviceEvent);
         deviceProcessorChain.process(deviceEvent);
     }
-
-    @Override
-    public Device getDevice(String houseReference, String deviceReference) {
-        return deviceDao.getDevice(houseReference, deviceReference);
-    }
-
 
 }
