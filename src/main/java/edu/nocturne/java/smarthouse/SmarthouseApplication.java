@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -13,7 +14,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.aws.core.env.ResourceIdResolver;
+import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 
 import static edu.nocturne.java.smarthouse.common.constant.TableNameConstants.DEVICES_TABLE;
 import static edu.nocturne.java.smarthouse.common.constant.TableNameConstants.DEVICE_EVENTS_TABLE;
@@ -60,6 +64,20 @@ public class SmarthouseApplication {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper;
+    }
+
+    @Bean
+    public QueueMessagingTemplate queueMessagingTemplate(AmazonSQSAsync amazonSqs, ResourceIdResolver resourceIdResolver, ObjectMapper objectMapper) {
+        QueueMessagingTemplate queueMessagingTemplate = new QueueMessagingTemplate(amazonSqs, resourceIdResolver);
+
+        MappingJackson2MessageConverter jacksonMessageConverter = new MappingJackson2MessageConverter();
+        jacksonMessageConverter.setSerializedPayloadClass(String.class);
+        jacksonMessageConverter.setObjectMapper(objectMapper);
+        jacksonMessageConverter.setStrictContentTypeMatch(false);
+
+        queueMessagingTemplate.setMessageConverter(jacksonMessageConverter);
+
+        return queueMessagingTemplate;
     }
 
 }
