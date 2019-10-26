@@ -28,7 +28,7 @@ public class InputDeviceEventValidator implements DeviceEventValidator {
             validationNotification.addError(EMPTY_COMMAND);
         }
         if (!validationNotification.hasNoErrors()) {
-            logger.info(validationNotification.toString());
+            logger.error(validationNotification.toString());
             throw new ValidationException(validationNotification);
         }
     }

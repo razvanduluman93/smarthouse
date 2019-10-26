@@ -31,7 +31,7 @@ public class DeviceEventProcessorChainImpl implements DeviceEventProcessorChain 
     public void process(DeviceEvent deviceEvent) {
         DeviceEventProcessor deviceEventProcessor = Optional.ofNullable(deviceEventProcessors.get(deviceEvent.getCommand()))
                                                             .orElseThrow(() -> {
-                                                                logger.info(UNSUPPORTED_OPERATION);
+                                                                logger.error(UNSUPPORTED_OPERATION);
                                                                 return new RuntimeException(UNSUPPORTED_OPERATION);
                                                             });
         deviceEventProcessor.process(deviceEvent);

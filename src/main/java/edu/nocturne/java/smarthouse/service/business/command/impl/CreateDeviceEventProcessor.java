@@ -43,7 +43,7 @@ public class CreateDeviceEventProcessor implements DeviceEventProcessor {
             deviceEventsDao.createDeviceEvent(deviceEvent);
             deviceProcessor.process(deviceMapper.map(deviceEvent));
         } else {
-            logger.info(validationNotification.toString());
+            logger.error(validationNotification.toString());
             throw new ValidationException(validationNotification);
         }
     }
