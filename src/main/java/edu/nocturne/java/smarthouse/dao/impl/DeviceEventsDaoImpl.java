@@ -49,7 +49,7 @@ public class DeviceEventsDaoImpl implements DeviceEventsDao {
 
 
     @Override
-    public void createDevice(DeviceEvent device) {
+    public void createDeviceEvent(DeviceEvent device) {
         device.setEventTimestamp(ZonedDateTime.now(ZoneId.of("UTC")).toEpochSecond());
         Item item = new Item().withPrimaryKey(REFERENCE, UUID.randomUUID().toString())
                               .withNumber(TIMESTAMP, device.getEventTimestamp())

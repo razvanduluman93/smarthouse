@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DeviceEventsDao {
 
-    void createDevice(DeviceEvent device);
+    void createDeviceEvent(DeviceEvent device);
 
     List<DeviceEvent> getDeviceEvents(String houseReference, String deviceReference);
 }

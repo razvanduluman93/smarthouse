@@ -3,7 +3,6 @@ package edu.nocturne.java.smarthouse.service.business.impl;
 import edu.nocturne.java.smarthouse.dao.DeviceDao;
 import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.service.business.DeviceProcessor;
-import edu.nocturne.java.smarthouse.type.Command;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +21,4 @@ public class DeviceProcessorImpl implements DeviceProcessor {
         deviceDao.createDevice(device);
     }
 
-    @Override
-    public Command getCommand() {
-        return Command.CREATE;
-    }
 }
