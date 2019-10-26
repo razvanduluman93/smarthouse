@@ -1,7 +1,7 @@
 package edu.nocturne.java.smarthouse.service.business.query;
 
 import edu.nocturne.java.smarthouse.domain.Device;
-import edu.nocturne.java.smarthouse.dto.DeviceQueryParameters;
+import edu.nocturne.java.smarthouse.common.dto.DeviceQueryParameters;
 
 import java.util.List;
 

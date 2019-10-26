@@ -1,8 +1,8 @@
 package edu.nocturne.java.smarthouse.domain;
 
-import edu.nocturne.java.smarthouse.type.Command;
-import edu.nocturne.java.smarthouse.type.DeviceState;
-import edu.nocturne.java.smarthouse.type.DeviceType;
+import edu.nocturne.java.smarthouse.common.type.Command;
+import edu.nocturne.java.smarthouse.common.type.DeviceState;
+import edu.nocturne.java.smarthouse.common.type.DeviceType;
 import lombok.Getter;
 import lombok.Setter;
 

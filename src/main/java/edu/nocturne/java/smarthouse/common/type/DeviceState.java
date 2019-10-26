@@ -1,4 +1,4 @@
-package edu.nocturne.java.smarthouse.type;
+package edu.nocturne.java.smarthouse.common.type;
 
 import lombok.Getter;
 import lombok.ToString;

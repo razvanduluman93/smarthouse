@@ -2,10 +2,10 @@ package edu.nocturne.java.smarthouse.api;
 
 import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
-import edu.nocturne.java.smarthouse.dto.DeviceQueryParameters;
+import edu.nocturne.java.smarthouse.common.dto.DeviceQueryParameters;
 import edu.nocturne.java.smarthouse.service.business.command.DeviceCommandService;
 import edu.nocturne.java.smarthouse.service.business.query.DeviceQueryService;
-import edu.nocturne.java.smarthouse.type.DeviceState;
+import edu.nocturne.java.smarthouse.common.type.DeviceState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

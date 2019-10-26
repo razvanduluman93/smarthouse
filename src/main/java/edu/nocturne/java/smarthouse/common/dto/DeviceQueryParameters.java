@@ -1,6 +1,6 @@
-package edu.nocturne.java.smarthouse.dto;
+package edu.nocturne.java.smarthouse.common.dto;
 
-import edu.nocturne.java.smarthouse.type.DeviceState;
+import edu.nocturne.java.smarthouse.common.type.DeviceState;
 import lombok.Builder;
 import lombok.Getter;
 
