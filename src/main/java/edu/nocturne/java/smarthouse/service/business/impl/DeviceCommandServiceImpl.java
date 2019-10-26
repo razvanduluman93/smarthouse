@@ -1,11 +1,9 @@
 package edu.nocturne.java.smarthouse.service.business.impl;
 
-import edu.nocturne.java.smarthouse.dao.DeviceDao;
 import edu.nocturne.java.smarthouse.dao.DeviceEventsDao;
-import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
-import edu.nocturne.java.smarthouse.service.business.DeviceProcessorChain;
 import edu.nocturne.java.smarthouse.service.business.DeviceCommandService;
+import edu.nocturne.java.smarthouse.service.business.DeviceProcessorChain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +23,10 @@ public class DeviceCommandServiceImpl implements DeviceCommandService {
 
     @Override
     public void putDevice(DeviceEvent deviceEvent) {
-        deviceEventsDao.createDevice(deviceEvent);
-        deviceProcessorChain.process(deviceEvent);
+        if (deviceEventsDao.getDeviceEvents(deviceEvent.getHouseReference(), deviceEvent.getDeviceReference()).isEmpty()) {
+            deviceEventsDao.createDevice(deviceEvent);
+            deviceProcessorChain.process(deviceEvent);
+        }
     }
 
 }

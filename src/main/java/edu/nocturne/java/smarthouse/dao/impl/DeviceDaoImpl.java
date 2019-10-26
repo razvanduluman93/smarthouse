@@ -27,7 +27,6 @@ public class DeviceDaoImpl implements DeviceDao {
     private static final String DATA = "data";
     private static final String EQUALS = " = ";
     private static final String HOUSE_REFERENCE_PARAMETER = ":houseReference";
-    private static final String DEVICE_REFERENCE_PARAMETER = ":deviceReference";
     private static final String STATE_PARAMETER = ":deviceState";
 
     private final Table table;
