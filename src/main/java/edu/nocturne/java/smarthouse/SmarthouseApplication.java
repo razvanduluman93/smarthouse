@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,16 +18,23 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class SmarthouseApplication {
 
+    @Value("${cloud.aws.credentials.accessKey}")
+    private String accessKey;
+    @Value("${cloud.aws.credentials.secretKey}")
+    private String secretKey;
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
     public static void main(String[] args) {
         SpringApplication.run(SmarthouseApplication.class, args);
     }
 
     @Bean
     public DynamoDB dynamoDB() {
-        AWSStaticCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIAWKXWUP6I2EFF6MOJ",
-                                                                                                                    "VWwW/oEg/3lRP5O5Kv2mGvnofc32pc9grHitEBmO"));
+        AWSStaticCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey,
+                                                                                                                    secretKey));
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-                                                           .withRegion("eu-west-1")
+                                                           .withRegion(region)
                                                            .withCredentials(credentialsProvider)
                                                            .build();
         return new DynamoDB(client);
