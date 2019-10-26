@@ -17,17 +17,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static edu.nocturne.java.smarthouse.common.constant.TableColumnConstants.*;
+import static edu.nocturne.java.smarthouse.common.constant.TableFilterConstants.*;
+
 @Repository
 public class DeviceDaoImpl implements DeviceDao {
-
-    private static final String HOUSE_REFERENCE = "houseReference";
-    private static final String DEVICE_REFERENCE = "deviceReference";
-    private static final String STATE = "deviceState";
-    private static final String DEVICE_TYPE = "deviceType";
-    private static final String DATA = "data";
-    private static final String EQUALS = " = ";
-    private static final String HOUSE_REFERENCE_PARAMETER = ":houseReference";
-    private static final String STATE_PARAMETER = ":deviceState";
 
     private final Table table;
     private final ObjectMapper objectMapper;

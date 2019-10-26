@@ -15,6 +15,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import static edu.nocturne.java.smarthouse.common.constant.TableNameConstants.DEVICES_TABLE;
+import static edu.nocturne.java.smarthouse.common.constant.TableNameConstants.DEVICE_EVENTS_TABLE;
+
 @SpringBootApplication
 public class SmarthouseApplication {
 
@@ -42,12 +45,12 @@ public class SmarthouseApplication {
 
     @Bean
     public Table deviceEvents(DynamoDB dynamoDB) {
-        return dynamoDB.getTable("device_events");
+        return dynamoDB.getTable(DEVICE_EVENTS_TABLE);
     }
 
     @Bean
     public Table devices(DynamoDB dynamoDB) {
-        return dynamoDB.getTable("devices");
+        return dynamoDB.getTable(DEVICES_TABLE);
     }
 
     @Bean

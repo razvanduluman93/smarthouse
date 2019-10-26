@@ -6,9 +6,9 @@ import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.nocturne.java.smarthouse.common.type.Command;
 import edu.nocturne.java.smarthouse.dao.DeviceEventsDao;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
-import edu.nocturne.java.smarthouse.common.type.Command;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -20,22 +20,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import static edu.nocturne.java.smarthouse.common.constant.TableColumnConstants.*;
+import static edu.nocturne.java.smarthouse.common.constant.TableFilterConstants.*;
+import static edu.nocturne.java.smarthouse.common.constant.TableIndexConstants.HOUSE_REFERENCE_DEVICE_REFERENCE_INDEX;
+
 @Repository
 public class DeviceEventsDaoImpl implements DeviceEventsDao {
-
-    private static final String REFERENCE = "reference";
-    private static final String HOUSE_REFERENCE = "houseReference";
-    private static final String DEVICE_REFERENCE = "deviceReference";
-    private static final String STATE = "deviceState";
-    private static final String TIMESTAMP = "eventTimestamp";
-    private static final String DEVICE_TYPE = "deviceType";
-    private static final String COMMAND = "command";
-    private static final String DATA = "data";
-    private static final String EQUALS = " = ";
-    private static final String HOUSE_REFERENCE_PARAMETER = ":houseReference";
-    private static final String COMMAND_PARAMETER = ":command";
-    private static final String DEVICE_REFERENCE_PARAMETER = ":deviceReference";
-    private static final String AND = " and ";
 
     private final Table table;
     private final ObjectMapper objectMapper;
@@ -72,7 +62,7 @@ public class DeviceEventsDaoImpl implements DeviceEventsDao {
                 .withValueMap(new ValueMap().withString(HOUSE_REFERENCE_PARAMETER, houseReference)
                                             .withString(DEVICE_REFERENCE_PARAMETER, deviceReference)
                                             .withString(COMMAND_PARAMETER, Command.CREATE.getValue()));
-        Iterator<Item> iterator = table.getIndex("houseReference-deviceReference-index")
+        Iterator<Item> iterator = table.getIndex(HOUSE_REFERENCE_DEVICE_REFERENCE_INDEX)
                                        .query(querySpec)
                                        .iterator();
         List<DeviceEvent> items = new ArrayList<>();
