@@ -1,4 +1,4 @@
 package edu.nocturne.java.smarthouse.type;
 
-public enum DeviceState {
+public enum Command {
 }
