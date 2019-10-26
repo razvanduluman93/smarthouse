@@ -1,6 +1,7 @@
 package edu.nocturne.java.smarthouse.service.business.command.impl;
 
 import edu.nocturne.java.smarthouse.common.type.Command;
+import edu.nocturne.java.smarthouse.common.validation.ValidationException;
 import edu.nocturne.java.smarthouse.common.validation.ValidationNotification;
 import edu.nocturne.java.smarthouse.dao.DeviceEventsDao;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
@@ -43,6 +44,7 @@ public class CreateDeviceEventProcessor implements DeviceEventProcessor {
             deviceProcessor.process(deviceMapper.map(deviceEvent));
         } else {
             logger.info(validationNotification.toString());
+            throw new ValidationException(validationNotification);
         }
     }
 
