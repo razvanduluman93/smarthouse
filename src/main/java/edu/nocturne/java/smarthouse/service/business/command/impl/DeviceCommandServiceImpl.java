@@ -2,7 +2,7 @@ package edu.nocturne.java.smarthouse.service.business.command.impl;
 
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 import edu.nocturne.java.smarthouse.service.business.command.DeviceCommandService;
-import edu.nocturne.java.smarthouse.service.business.command.DeviceEventDispacherChain;
+import edu.nocturne.java.smarthouse.service.business.command.DeviceEventDispatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeviceCommandServiceImpl implements DeviceCommandService {
 
-    private final DeviceEventDispacherChain deviceEventDispacherChain;
+    private final DeviceEventDispatcher deviceEventDispatcher;
 
     @Autowired
-    public DeviceCommandServiceImpl(DeviceEventDispacherChain deviceEventDispacherChain) {
-        this.deviceEventDispacherChain = deviceEventDispacherChain;
+    public DeviceCommandServiceImpl(DeviceEventDispatcher deviceEventDispatcher) {
+        this.deviceEventDispatcher = deviceEventDispatcher;
     }
 
     @Override
     public void putDevice(DeviceEvent deviceEvent) {
-        deviceEventDispacherChain.process(deviceEvent);
+        deviceEventDispatcher.process(deviceEvent);
     }
 
 }
