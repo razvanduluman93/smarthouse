@@ -7,9 +7,9 @@ import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.nocturne.java.smarthouse.common.dto.DeviceQueryParameters;
 import edu.nocturne.java.smarthouse.dao.DeviceDao;
 import edu.nocturne.java.smarthouse.domain.Device;
-import edu.nocturne.java.smarthouse.common.dto.DeviceQueryParameters;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
