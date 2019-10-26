@@ -5,7 +5,8 @@ import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 
 public interface DeviceService {
 
-    void putDevice(DeviceEvent deviceEventDTO);
+    void putDevice(DeviceEvent deviceEvent);
 
-    Device getDeviceState(String houseReference, String deviceReference);
+    Device getDevice(String houseReference, String deviceReference);
+
 }

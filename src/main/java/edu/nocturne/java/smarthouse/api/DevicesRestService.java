@@ -18,14 +18,15 @@ public class DevicesRestService {
     }
 
     @PutMapping("/devices")
-    public ResponseEntity<Void> sendAction(@RequestBody DeviceEvent deviceEventDTO) {
-        deviceService.putDevice(deviceEventDTO);
+    public ResponseEntity<Void> sendAction(@RequestBody DeviceEvent deviceEvent) {
+        deviceService.putDevice(deviceEvent);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/devices")
-    public ResponseEntity<Device> getDeviceState(@RequestParam("houseReference") String houseReference, @RequestParam("deviceReference") String deviceReference) {
-        return ResponseEntity.ok(deviceService.getDeviceState(houseReference, deviceReference));
+    public ResponseEntity<Device> getDeviceState(@RequestParam("houseReference") String houseReference,
+                                                 @RequestParam("deviceReference") String deviceReference) {
+        return ResponseEntity.ok(deviceService.getDevice(houseReference, deviceReference));
     }
 
 }

@@ -10,6 +10,8 @@ import edu.nocturne.java.smarthouse.domain.Device;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.time.ZonedDateTime;
+
 @Repository
 public class DeviceDaoImpl implements DeviceDao {
 

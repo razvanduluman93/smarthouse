@@ -6,6 +6,7 @@ import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 import edu.nocturne.java.smarthouse.service.business.DeviceProcessorChain;
 import edu.nocturne.java.smarthouse.service.business.DeviceService;
+import edu.nocturne.java.smarthouse.service.mapper.DeviceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Device getDeviceState(String houseReference, String deviceReference) {
+    public Device getDevice(String houseReference, String deviceReference) {
         return deviceDao.getDevice(houseReference, deviceReference);
     }
 

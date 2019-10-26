@@ -16,7 +16,7 @@ public class DeviceEvent {
     private String reference;
     private String houseReference;
     private String deviceReference;
-    private ZonedDateTime timestamp;
+    private Long eventTimestamp;
     private DeviceState state;
     private DeviceType deviceType;
     private Command command;
