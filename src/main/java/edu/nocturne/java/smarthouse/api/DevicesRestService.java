@@ -2,11 +2,15 @@ package edu.nocturne.java.smarthouse.api;
 
 import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
+import edu.nocturne.java.smarthouse.dto.DeviceQueryParameters;
 import edu.nocturne.java.smarthouse.service.business.DeviceCommandService;
 import edu.nocturne.java.smarthouse.service.business.DeviceQueryService;
+import edu.nocturne.java.smarthouse.type.DeviceState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class DevicesRestService {
@@ -27,10 +31,18 @@ public class DevicesRestService {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/devices")
-    public ResponseEntity<Device> getDeviceState(@RequestParam("houseReference") String houseReference,
-                                                 @RequestParam("deviceReference") String deviceReference) {
+    @GetMapping("/devices/{deviceReference}")
+    public ResponseEntity<Device> getDevices(@RequestHeader("houseReference") String houseReference,
+                                             @PathVariable("deviceReference") String deviceReference) {
         return ResponseEntity.ok(deviceQueryService.getDevice(houseReference, deviceReference));
     }
 
+    @GetMapping("/devices")
+    public ResponseEntity<List<Device>> getDevices(@RequestHeader("houseReference") String houseReference,
+                                                   @RequestParam(value = "deviceState") DeviceState deviceState) {
+        DeviceQueryParameters queryParameters = DeviceQueryParameters.builder()
+                                                                     .deviceState(deviceState)
+                                                                     .build();
+        return ResponseEntity.ok(deviceQueryService.getFilteredDevices(houseReference, queryParameters));
+    }
 }

@@ -7,7 +7,8 @@ import lombok.ToString;
 @Getter
 public enum DeviceState {
     ON("ON"),
-    OFF("OFF");
+    OFF("OFF"),
+    EMPTY("EMPTY");
 
     private String value;
 

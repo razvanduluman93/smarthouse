@@ -5,7 +5,6 @@ import edu.nocturne.java.smarthouse.type.DeviceType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
 import java.util.Map;
 
 @Getter
@@ -14,7 +13,7 @@ public class Device {
 
     private String houseReference;
     private String deviceReference;
-    private DeviceState state;
+    private DeviceState deviceState;
     private DeviceType deviceType;
     private Map<String, String> data;
 
