@@ -10,7 +10,7 @@ phases:
   post_build:
     commands:
       - cp target/smarthouse-0.0.1-SNAPSHOT.jar smarthouse-0.0.1-SNAPSHOT.jar
-      - zip smarthouse-0.0.1-SNAPSHOT.jar
+      - zip smarthouse-0.0.1-SNAPSHOT.jar.zip smarthouse-0.0.1-SNAPSHOT.jar
 artifacts:
   files:
     - smarthouse-0.0.1-SNAPSHOT.jar.zip
