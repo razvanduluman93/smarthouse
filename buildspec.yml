@@ -12,7 +12,7 @@ phases:
       - mkdir smarthouse_app
       - cp target/smarthouse-0.0.1-SNAPSHOT.jar smarthouse_app
       - cp appspec.yml smarthouse_app
-      - cp scripts smarthouse_app
+      - cp /scripts smarthouse_app
       - zip smarthouse_app.zip smarthouse_app
 artifacts:
   files:
