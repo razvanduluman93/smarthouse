@@ -11,6 +11,7 @@ import edu.nocturne.java.smarthouse.dao.DeviceEventsDao;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.time.ZoneId;
@@ -22,13 +23,15 @@ import java.util.UUID;
 
 import static edu.nocturne.java.smarthouse.common.constant.TableColumnConstants.*;
 import static edu.nocturne.java.smarthouse.common.constant.TableFilterConstants.*;
-import static edu.nocturne.java.smarthouse.common.constant.TableIndexConstants.HOUSE_REFERENCE_DEVICE_REFERENCE_INDEX;
 
 @Repository
 public class DeviceEventsDaoImpl implements DeviceEventsDao {
 
     private final Table table;
     private final ObjectMapper objectMapper;
+
+    @Value("${cloud.aws.dynamodb.tables.DeviceEvents.indexes.DeviceEventsHouseDeviceIndex}")
+    private String houseDeviceIndex;
 
     @Autowired
     public DeviceEventsDaoImpl(@Qualifier("deviceEvents") Table table,
@@ -62,7 +65,7 @@ public class DeviceEventsDaoImpl implements DeviceEventsDao {
                 .withValueMap(new ValueMap().withString(HOUSE_REFERENCE_PARAMETER, houseReference)
                                             .withString(DEVICE_REFERENCE_PARAMETER, deviceReference)
                                             .withString(COMMAND_PARAMETER, Command.CREATE.getValue()));
-        Iterator<Item> iterator = table.getIndex(HOUSE_REFERENCE_DEVICE_REFERENCE_INDEX)
+        Iterator<Item> iterator = table.getIndex(houseDeviceIndex)
                                        .query(querySpec)
                                        .iterator();
         List<DeviceEvent> items = new ArrayList<>();

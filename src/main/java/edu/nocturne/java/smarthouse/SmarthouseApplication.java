@@ -19,8 +19,6 @@ import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 
-import static edu.nocturne.java.smarthouse.common.constant.TableNameConstants.DEVICES_TABLE;
-import static edu.nocturne.java.smarthouse.common.constant.TableNameConstants.DEVICE_EVENTS_TABLE;
 
 @SpringBootApplication
 public class SmarthouseApplication {
@@ -31,6 +29,10 @@ public class SmarthouseApplication {
     private String secretKey;
     @Value("${cloud.aws.region.static}")
     private String region;
+    @Value("${cloud.aws.dynamodb.tables.DeviceEvents.name}")
+    private String deviceEventsTable;
+    @Value("${cloud.aws.dynamodb.tables.Devices.name}")
+    private String devicesTable;
 
     public static void main(String[] args) {
         SpringApplication.run(SmarthouseApplication.class, args);
@@ -49,12 +51,12 @@ public class SmarthouseApplication {
 
     @Bean
     public Table deviceEvents(DynamoDB dynamoDB) {
-        return dynamoDB.getTable(DEVICE_EVENTS_TABLE);
+        return dynamoDB.getTable(deviceEventsTable);
     }
 
     @Bean
     public Table devices(DynamoDB dynamoDB) {
-        return dynamoDB.getTable(DEVICES_TABLE);
+        return dynamoDB.getTable(devicesTable);
     }
 
     @Bean
