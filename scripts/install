@@ -1,2 +1,2 @@
 #!/bin/bash
-mvn spring-boot:run
+java -jar smarthouse-0.0.1-SNAPSHOT.jar
