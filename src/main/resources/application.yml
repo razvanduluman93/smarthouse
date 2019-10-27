@@ -1,2 +1,22 @@
+cloud:
+  aws:
+    region:
+      static: eu-west-1
+    credentials:
+      accessKey: AKIAWKXWUP6ISKUEQ5LV
+      secretKey: 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
+    stack:
+      auto: false
+    dynamodb:
+      endpoint: dynamodb.eu-west-1.amazonaws.com
+      tables:
+        DeviceEvents:
+          name: cristi-device_events
+          indexes:
+            DeviceEventsHouseDeviceIndex: cristi-houseReference-deviceReference-index
+        Devices:
+          name: cristi-devices
+    queues:
+      DeviceEventsQueue: cristi-DeviceEvents
 server:
   port: 8090
