@@ -9,11 +9,7 @@ phases:
       - mvn clean install
   post_build:
     commands:
-      - mkdir smarthouse_app
-      - cp target/smarthouse-0.0.1-SNAPSHOT.jar smarthouse_app
-      - cp appspec.yml smarthouse_app
-      - cp install smarthouse_app
-      - zip smarthouse_app.zip smarthouse_app
+      - zip smarthouse_app.zip target/smarthouse-0.0.1-SNAPSHOT.jar appspec.yml install
 artifacts:
   files:
     - smarthouse_app.zip
