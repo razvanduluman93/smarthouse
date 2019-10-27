@@ -7,6 +7,9 @@ phases:
   build:
     commands:
       - mvn clean install
+  post_build:
+    commands:
+      - zip target/smarthouse-0.0.1-SNAPSHOT.jar smarthouse_archive
 artifacts:
   files:
-    - target/smarthouse-0.0.1-SNAPSHOT.jar
+    - smarthouse_archive
