@@ -1,6 +1,9 @@
 version: 0.0
 os: linux
+files:
+  - source: ./
+    destination: /cristi
 hooks:
-  Install:
-    - location: install
+  ApplicationStart:
+    - location: install.sh
       runas: root
