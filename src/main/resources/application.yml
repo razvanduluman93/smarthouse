@@ -2,9 +2,6 @@ cloud:
   aws:
     region:
       static: eu-west-1
-    credentials:
-      accessKey: AKIAWKXWUP6IXPI5O6XG
-      secretKey: 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
     stack:
       auto: false
     dynamodb:
