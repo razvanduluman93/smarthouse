@@ -10,7 +10,10 @@ phases:
   post_build:
     commands:
       - cp target/smarthouse-0.0.1-SNAPSHOT.jar smarthouse-0.0.1-SNAPSHOT.jar
-      - zip smarthouse_app.zip smarthouse-0.0.1-SNAPSHOT.jar appspec.yml install.sh
+#      - zip smarthouse_app.zip smarthouse-0.0.1-SNAPSHOT.jar appspec.yml install.sh
 artifacts:
   files:
-    - smarthouse_app.zip
+#    - smarthouse_app.zip
+    - smarthouse-0.0.1-SNAPSHOT.jar
+    - appspec.yml
+    - install.sh
