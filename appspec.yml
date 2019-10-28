@@ -7,4 +7,3 @@ hooks:
   ApplicationStart:
     - location: install.sh
       runas: root
-      timeout: 60
