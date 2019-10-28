@@ -3,8 +3,8 @@ cloud:
     region:
       static: eu-west-1
     credentials:
-      accessKey: AKIAWKXWUP6IT3YZJ2UB
-      secretKey: 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
+      accessKey: AKIAWKXWUP6IXPI5O6XG
+      secretKey: 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
     stack:
       auto: false
     dynamodb:
