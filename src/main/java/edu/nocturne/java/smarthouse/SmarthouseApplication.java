@@ -42,7 +42,7 @@ public class SmarthouseApplication {
     public BasicAWSCredentials basicAWSCredentials() {
         String accessKey;
         String secretKey;
-        String secretName = "nocturne";
+        String secretName = "nocturne_smarthouse";
         String region = "eu-west-1";
 
         AWSSecretsManager client = AWSSecretsManagerClientBuilder.standard()
