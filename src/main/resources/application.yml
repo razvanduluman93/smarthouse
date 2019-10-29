@@ -1,9 +1,22 @@
 cloud:
   aws:
+    secrets:
+      accessKeys:
+        name: nocturne_smarthouse
+        keys:
+          accessKey: accessKey
+          secretKey: secretKey
+      activeMqLogin:
+        name: active_mq_secret
+        keys:
+          activeMqUsername: login
+          activeMqPassword: passcode
     region:
       static: eu-west-1
     stack:
       auto: false
+    activeMq:
+      endpoint: wss://b-bfab5ea4-4f66-40e0-8ea2-415f88dd5604-1.mq.eu-west-1.amazonaws.com:61619
     dynamodb:
       endpoint: dynamodb.eu-west-1.amazonaws.com
       tables:
