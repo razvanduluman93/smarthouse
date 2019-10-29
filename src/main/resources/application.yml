@@ -16,7 +16,7 @@ cloud:
     stack:
       auto: false
     activeMq:
-      endpoint: wss://b-bfab5ea4-4f66-40e0-8ea2-415f88dd5604-1.mq.eu-west-1.amazonaws.com:61619
+      endpoint: ssl://b-bfab5ea4-4f66-40e0-8ea2-415f88dd5604-1.mq.eu-west-1.amazonaws.com:61617
     dynamodb:
       endpoint: dynamodb.eu-west-1.amazonaws.com
       tables:

@@ -33,31 +33,29 @@ public class AwsConfig {
     @Bean
     public BasicAWSCredentials basicAWSCredentials() {
 
-        String secret = getSecret(accessKeysSecret, region);
-        JSONObject jsonObject = new JSONObject(secret);
+        JSONObject jsonObject = getSecret(accessKeysSecret, region);
 
-        return new BasicAWSCredentials(jsonObject.getString(accessKey), jsonObject.getString(secretKey));
+        return new BasicAWSCredentials(jsonObject.getString(accessKey),
+                                       jsonObject.getString(secretKey));
     }
 
     @Bean
     ActiveMQConnectionFactory activeMQConnectionFactory() {
 
-        String secret = getSecret(activeMqLoginSecret, region);
-        JSONObject jsonObject = new JSONObject(secret);
+        JSONObject jsonObject = getSecret(activeMqLoginSecret, region);
 
         return new ActiveMQConnectionFactory(jsonObject.getString(activeMqUsername),
                                              jsonObject.getString(activeMqPassword),
                                              activeMqEndpoint);
     }
 
-    private String getSecret(String secretName, String region) {
+    private JSONObject getSecret(String secretName, String region) {
         AWSSecretsManager client = AWSSecretsManagerClientBuilder.standard()
                                                                  .withRegion(region)
                                                                  .build();
 
         String secret = null;
-        GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest()
-                .withSecretId(secretName);
+        GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest().withSecretId(secretName);
         GetSecretValueResult getSecretValueResult;
 
         try {
@@ -69,7 +67,7 @@ public class AwsConfig {
         if (getSecretValueResult.getSecretString() != null) {
             secret = getSecretValueResult.getSecretString();
         }
-        return secret;
+        return new JSONObject(secret);
     }
 
 }
