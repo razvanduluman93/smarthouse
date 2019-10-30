@@ -5,6 +5,7 @@ import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.common.dto.DeviceQueryParameters;
 import edu.nocturne.java.smarthouse.service.business.query.DeviceQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +27,14 @@ public class DeviceQueryServiceImpl implements DeviceQueryService {
         return deviceDao.getDevice(houseReference, deviceReference);
     }
 
+
     @Override
-    public List<Device> getFilteredDevices(String houseReference, DeviceQueryParameters queryParameters) {
-        return deviceDao.getFilteredDevice(houseReference, queryParameters);
+    public List<Device> getDevices(String houseReference, DeviceQueryParameters queryParameters) {
+        if (queryParameters.isEmpty()) {
+            return deviceDao.getDevices(houseReference);
+        } else {
+            return deviceDao.getFilteredDevice(houseReference, queryParameters);
+        }
     }
 
 

@@ -10,5 +10,6 @@ public interface DeviceQueryService {
 
     Device getDevice(String houseReference, String deviceReference);
 
-    List<Device> getFilteredDevices(String houseReference, DeviceQueryParameters queryParameters);
+    List<Device> getDevices(String houseReference, DeviceQueryParameters queryParameters);
+
 }

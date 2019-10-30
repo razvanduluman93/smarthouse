@@ -1,8 +1,6 @@
 package edu.nocturne.java.smarthouse.dao.impl;
 
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
-import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -63,7 +61,19 @@ public class DeviceDaoImpl implements DeviceDao {
                 .withFilterExpression(STATE + EQUALS + STATE_PARAMETER)
                 .withValueMap(new ValueMap().withString(HOUSE_REFERENCE_PARAMETER, houseReference)
                                             .withString(STATE_PARAMETER, queryParameters.getDeviceState().getValue()));
-        Iterator<Item> iterator = table.query(querySpec).iterator();
+        return getDevices(table.query(querySpec));
+    }
+
+    @Override
+    public List<Device> getDevices(String houseReference) {
+        QuerySpec querySpec = new QuerySpec()
+                .withKeyConditionExpression(HOUSE_REFERENCE + EQUALS + HOUSE_REFERENCE_PARAMETER)
+                .withValueMap(new ValueMap().withString(HOUSE_REFERENCE_PARAMETER, houseReference));
+        return getDevices(table.query(querySpec));
+    }
+
+    private List<Device> getDevices(ItemCollection<QueryOutcome> queryOutcome) {
+        Iterator<Item> iterator = queryOutcome.iterator();
         List<Device> items = new ArrayList<>();
         while (iterator.hasNext()) {
             try {

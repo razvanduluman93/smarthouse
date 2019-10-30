@@ -12,4 +12,6 @@ public interface DeviceDao {
     Device getDevice(String houseReference, String deviceReference);
 
     List<Device> getFilteredDevice(String houseReference, DeviceQueryParameters deviceQueryParameters);
+
+    List<Device> getDevices(String houseReference);
 }

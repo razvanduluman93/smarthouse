@@ -9,4 +9,8 @@ import lombok.Getter;
 public class DeviceQueryParameters {
     private DeviceState deviceState;
 
+    public boolean isEmpty() {
+        return deviceState == null;
+    }
+
 }
