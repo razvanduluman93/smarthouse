@@ -13,6 +13,8 @@ import javax.jms.*;
 @Component
 public class ActiveMqMessageProducerImpl implements ActiveMqMessageProducer {
 
+    private static final String NOCTURNE_QUEUE = "nocturne";
+
     private final PooledConnectionFactory pooledConnectionFactory;
     private final ObjectMapper objectMapper;
 
@@ -29,7 +31,7 @@ public class ActiveMqMessageProducerImpl implements ActiveMqMessageProducer {
         producerConnection.start();
 
         Session producerSession = producerConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        Destination producerDestination = producerSession.createQueue(eventNotification.getHouseReference());
+        Destination producerDestination = producerSession.createQueue(NOCTURNE_QUEUE);
 
         MessageProducer producer = producerSession.createProducer(producerDestination);
         producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
