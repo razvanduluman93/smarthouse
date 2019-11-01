@@ -27,6 +27,6 @@ cloud:
         Devices:
           name: temp_devices
     queues:
-      DeviceEventsQueue: nocturne-EventsQueue
+      DeviceEventsQueue: temp-EventsQueue
 server:
   port: 8090
