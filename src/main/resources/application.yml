@@ -16,17 +16,17 @@ cloud:
     stack:
       auto: false
     activeMq:
-      endpoint: ssl://b-99a8c45e-d98c-4216-b13c-eb553b47dd59-1.mq.eu-west-1.amazonaws.com:61617
+      endpoint: ssl://b-f7f494cd-efb2-4c68-b656-f70b05e8a4d8-1.mq.eu-west-1.amazonaws.com:61617
     dynamodb:
       endpoint: dynamodb.eu-west-1.amazonaws.com
       tables:
         DeviceEvents:
-          name: temp-device_events
+          name: nocturne_device_events
           indexes:
-            DeviceEventsHouseDeviceIndex: temp-houseReference-deviceReference-index
+            DeviceEventsHouseDeviceIndex: nocturne_houseReference-deviceReference-index
         Devices:
-          name: temp-devices
+          name: nocturne_devices
     queues:
-      DeviceEventsQueue: temp-EventsQueue
+      DeviceEventsQueue: nocturne-EventsQueue
 server:
   port: 8090

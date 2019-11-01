@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class DeviceDaoImpl implements DeviceDao {
                                               DEVICE_REFERENCE, device.getDeviceReference())
                               .withString(STATE, device.getDeviceState().getValue())
                               .withString(DEVICE_TYPE, device.getDeviceType().getValue())
-                              .withMap(DATA, device.getData());
+                              .withMap(DATA, device.getDeviceData());
 
         table.putItem(item);
     }
@@ -52,12 +53,15 @@ public class DeviceDaoImpl implements DeviceDao {
     public void updateDevice(Device device) {
         KeyAttribute partitionKey = new KeyAttribute(HOUSE_REFERENCE, device.getHouseReference());
         KeyAttribute sortKey = new KeyAttribute(DEVICE_REFERENCE, device.getDeviceReference());
-        UpdateItemSpec updateItem = new UpdateItemSpec().withPrimaryKey(partitionKey, sortKey)
-                                                        .withUpdateExpression("set " + devicesTable + "." + STATE + EQUALS + STATE_PARAMETER +
-                                                                                      ", " + devicesTable + "." + DATA + EQUALS + DATA_PARAMETER +
-                                                                                      ", " + devicesTable + "." + DEVICE_TYPE + EQUALS + DEVICE_TYPE_PARAMETER)
-                                                        .withValueMap(new ValueMap().withString(STATE_PARAMETER, device.getDeviceState().toString())
-                                                                                    .withMap(DATA, device.getData()));
+        UpdateItemSpec updateItem = new UpdateItemSpec()
+                .withPrimaryKey(partitionKey, sortKey)
+                .withUpdateExpression("set " + STATE + EQUALS + STATE_PARAMETER +
+                                              ", " + DATA + EQUALS + DATA_PARAMETER +
+                                              ", " + DEVICE_TYPE + EQUALS + DEVICE_TYPE_PARAMETER)
+                .withValueMap(new ValueMap().withString(STATE_PARAMETER, device.getDeviceState().getValue())
+                                            .withMap(DATA_PARAMETER, device.getDeviceData())
+                                            .withString(DEVICE_TYPE_PARAMETER, device.getDeviceType().getValue()))
+                .withReturnValues(ReturnValue.ALL_NEW);
 
         table.updateItem(updateItem);
     }

@@ -5,7 +5,7 @@ public class TableColumnConstants {
     public static final String DEVICE_REFERENCE = "deviceReference";
     public static final String STATE = "deviceState";
     public static final String DEVICE_TYPE = "deviceType";
-    public static final String DATA = "data";
+    public static final String DATA = "deviceData";
     public static final String REFERENCE = "reference";
     public static final String TIMESTAMP = "eventTimestamp";
     public static final String COMMAND = "command";

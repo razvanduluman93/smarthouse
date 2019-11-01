@@ -19,6 +19,6 @@ public class DeviceEvent {
     private DeviceState deviceState;
     private DeviceType deviceType;
     private Command command;
-    private Map<String, String> data;
+    private Map<String, String> deviceData;
 
 }

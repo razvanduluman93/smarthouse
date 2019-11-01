@@ -48,10 +48,10 @@ public class DeviceEventsDaoImpl implements DeviceEventsDao {
                               .withNumber(TIMESTAMP, device.getEventTimestamp())
                               .withString(HOUSE_REFERENCE, device.getHouseReference())
                               .withString(DEVICE_REFERENCE, device.getDeviceReference())
-                              .withString(STATE, device.getDeviceState().toString())
-                              .withString(DEVICE_TYPE, device.getDeviceType().toString())
+                              .withString(STATE, device.getDeviceState().getValue())
+                              .withString(DEVICE_TYPE, device.getDeviceType().getValue())
                               .withString(COMMAND, device.getCommand().getValue())
-                              .withMap(DATA, device.getData());
+                              .withMap(DATA, device.getDeviceData());
 
         table.putItem(item);
     }

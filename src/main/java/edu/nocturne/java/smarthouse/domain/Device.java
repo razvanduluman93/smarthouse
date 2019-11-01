@@ -15,6 +15,6 @@ public class Device {
     private String deviceReference;
     private DeviceState deviceState;
     private DeviceType deviceType;
-    private Map<String, String> data;
+    private Map<String, String> deviceData;
 
 }
