@@ -1,5 +1,6 @@
 package edu.nocturne.java.smarthouse.service.validator.impl;
 
+import edu.nocturne.java.smarthouse.common.type.Command;
 import edu.nocturne.java.smarthouse.common.validation.ValidationException;
 import edu.nocturne.java.smarthouse.common.validation.ValidationNotification;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
@@ -8,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static edu.nocturne.java.smarthouse.common.type.ErrorType.*;
 
@@ -31,6 +35,11 @@ public class InputDeviceEventValidator implements DeviceEventValidator {
             logger.error(validationNotification.toString());
             throw new ValidationException(validationNotification);
         }
+    }
+
+    @Override
+    public List<Command> supportedCommands() {
+        return Arrays.asList(Command.CREATE, Command.UPDATE);
     }
 
     @Override

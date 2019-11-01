@@ -2,13 +2,16 @@ package edu.nocturne.java.smarthouse.dao.impl;
 
 import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.nocturne.java.smarthouse.common.dto.DeviceQueryParameters;
 import edu.nocturne.java.smarthouse.dao.DeviceDao;
 import edu.nocturne.java.smarthouse.domain.Device;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -24,6 +27,9 @@ public class DeviceDaoImpl implements DeviceDao {
     private final Table table;
     private final ObjectMapper objectMapper;
 
+    @Value("${cloud.aws.dynamodb.tables.Devices.name}")
+    private String devicesTable;
+
     public DeviceDaoImpl(@Qualifier("devices") Table table,
                          ObjectMapper objectMapper) {
         this.table = table;
@@ -32,14 +38,28 @@ public class DeviceDaoImpl implements DeviceDao {
 
 
     @Override
-    public void createDevice(Device device) {
+    public void putDevice(Device device) {
         Item item = new Item().withPrimaryKey(HOUSE_REFERENCE, device.getHouseReference(),
                                               DEVICE_REFERENCE, device.getDeviceReference())
                               .withString(STATE, device.getDeviceState().getValue())
-                              .withString(DEVICE_TYPE, device.getDeviceType().getValue())
+                              .withString(DEVICE_TYPE, String.valueOf(device.getDeviceType()))
                               .withMap(DATA, device.getData());
 
         table.putItem(item);
+    }
+
+    @Override
+    public void updateDevice(Device device) {
+        KeyAttribute partitionKey = new KeyAttribute(HOUSE_REFERENCE, device.getHouseReference());
+        KeyAttribute sortKey = new KeyAttribute(DEVICE_REFERENCE, device.getDeviceReference());
+        UpdateItemSpec updateItem = new UpdateItemSpec().withPrimaryKey(partitionKey, sortKey)
+                                                        .withUpdateExpression("set " + devicesTable + "." + STATE + EQUALS + STATE_PARAMETER +
+                                                                                      ", " + devicesTable + "." + DATA + EQUALS + DATA_PARAMETER +
+                                                                                      ", " + devicesTable + "." + DEVICE_TYPE + EQUALS + DEVICE_TYPE_PARAMETER)
+                                                        .withValueMap(new ValueMap().withString(STATE_PARAMETER, device.getDeviceState().toString())
+                                                                                    .withMap(DATA, device.getData()));
+
+        table.updateItem(updateItem);
     }
 
     @Override

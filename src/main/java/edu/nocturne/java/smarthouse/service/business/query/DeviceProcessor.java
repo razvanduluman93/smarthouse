@@ -4,6 +4,6 @@ import edu.nocturne.java.smarthouse.domain.Device;
 
 public interface DeviceProcessor {
 
-    void process(Device deviceEventDTO);
-
+    void create(Device deviceEventDTO);
+    void update(Device deviceEventDTO);
 }

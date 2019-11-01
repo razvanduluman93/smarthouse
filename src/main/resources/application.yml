@@ -21,12 +21,12 @@ cloud:
       endpoint: dynamodb.eu-west-1.amazonaws.com
       tables:
         DeviceEvents:
-          name: cristi-device_events
+          name: nocturne-device_events
           indexes:
-            DeviceEventsHouseDeviceIndex: cristi-houseReference-deviceReference-index
+            DeviceEventsHouseDeviceIndex: nocturne-houseReference-deviceReference-index
         Devices:
-          name: cristi-devices
+          name: nocturne-devices
     queues:
-      DeviceEventsQueue: cristi-DeviceEvents
+      DeviceEventsQueue: nocturne-EventsQueue
 server:
   port: 8090

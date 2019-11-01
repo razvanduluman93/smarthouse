@@ -9,5 +9,6 @@ import org.mapstruct.Mapper;
 public interface DeviceMapper {
 
     Device map(DeviceEvent deviceEvent);
+    Device map(Device device);
 
 }

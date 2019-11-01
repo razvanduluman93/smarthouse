@@ -21,6 +21,10 @@ public class DeviceEventValidatorChainImpl implements DeviceEventValidatorChain 
 
     @Override
     public void validate(DeviceEvent deviceEvent, ValidationNotification validationNotification) {
-        deviceEventValidators.forEach(validator -> validator.validate(deviceEvent, validationNotification));
+        deviceEventValidators.forEach(validator -> {
+            if(validator.supportedCommands().contains(deviceEvent.getCommand())) {
+                validator.validate(deviceEvent, validationNotification);
+            }
+        });
     }
 }

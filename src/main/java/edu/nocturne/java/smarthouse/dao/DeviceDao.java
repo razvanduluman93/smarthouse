@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface DeviceDao {
 
-    void createDevice(Device device);
+    void putDevice(Device device);
 
     Device getDevice(String houseReference, String deviceReference);
 
     List<Device> getFilteredDevice(String houseReference, DeviceQueryParameters deviceQueryParameters);
 
     List<Device> getDevices(String houseReference);
+
+    void updateDevice(Device device);
 }

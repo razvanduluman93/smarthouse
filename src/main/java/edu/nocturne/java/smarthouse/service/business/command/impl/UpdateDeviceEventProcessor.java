@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import javax.jms.JMSException;
 
 @Component
-public class CreateDeviceEventProcessor implements DeviceEventProcessor {
+public class UpdateDeviceEventProcessor implements DeviceEventProcessor {
 
     private final DeviceEventsDao deviceEventsDao;
     private final DeviceProcessor deviceProcessor;
@@ -28,10 +28,10 @@ public class CreateDeviceEventProcessor implements DeviceEventProcessor {
     private final DeviceEventValidatorChain deviceEventValidatorChain;
     private final ActiveMqMessageProducer activeMqMessageProducer;
 
-    private Logger logger = LoggerFactory.getLogger(CreateDeviceEventProcessor.class);
+    private Logger logger = LoggerFactory.getLogger(UpdateDeviceEventProcessor.class);
 
     @Autowired
-    public CreateDeviceEventProcessor(DeviceEventsDao deviceEventsDao,
+    public UpdateDeviceEventProcessor(DeviceEventsDao deviceEventsDao,
                                       DeviceProcessor deviceProcessor,
                                       DeviceMapper deviceMapper,
                                       DeviceEventValidatorChain deviceEventValidatorChain,
@@ -49,7 +49,7 @@ public class CreateDeviceEventProcessor implements DeviceEventProcessor {
         deviceEventValidatorChain.validate(deviceEvent, validationNotification);
         if (validationNotification.hasNoErrors()) {
             deviceEventsDao.createDeviceEvent(deviceEvent);
-            deviceProcessor.create(deviceMapper.map(deviceEvent));
+            deviceProcessor.update(deviceMapper.map(deviceEvent));
             sendMessage(deviceEvent, validationNotification, MessageStatus.OK);
         } else {
             logger.error(validationNotification.toString());
@@ -59,7 +59,7 @@ public class CreateDeviceEventProcessor implements DeviceEventProcessor {
 
     @Override
     public Command getCommand() {
-        return Command.CREATE;
+        return Command.UPDATE;
     }
 
     private void sendMessage(DeviceEvent deviceEvent, ValidationNotification validationNotification, MessageStatus messageStatus) {
@@ -76,5 +76,4 @@ public class CreateDeviceEventProcessor implements DeviceEventProcessor {
             e.printStackTrace();
         }
     }
-
 }

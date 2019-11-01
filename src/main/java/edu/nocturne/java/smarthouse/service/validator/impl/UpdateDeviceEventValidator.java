@@ -12,28 +12,27 @@ import java.util.Arrays;
 import java.util.List;
 
 import static edu.nocturne.java.smarthouse.common.type.ErrorType.ALREADY_EXISTENT_PRIMARY_KEY;
+import static edu.nocturne.java.smarthouse.common.type.ErrorType.INEXISTENT_DEVICE;
 
 @Component
-public class ConsistencyDeviceEventValidator implements DeviceEventValidator {
-
+public class UpdateDeviceEventValidator implements DeviceEventValidator {
 
     private final DeviceEventsDao deviceEventsDao;
 
     @Autowired
-    public ConsistencyDeviceEventValidator(DeviceEventsDao deviceEventsDao) {
+    public UpdateDeviceEventValidator(DeviceEventsDao deviceEventsDao) {
         this.deviceEventsDao = deviceEventsDao;
     }
 
     @Override
     public void validate(DeviceEvent deviceEvent, ValidationNotification validationNotification) {
-        if (!deviceEventsDao.getDeviceEvents(deviceEvent.getHouseReference(), deviceEvent.getDeviceReference()).isEmpty()) {
-            validationNotification.addError(ALREADY_EXISTENT_PRIMARY_KEY);
+        if (deviceEventsDao.getDeviceEvents(deviceEvent.getHouseReference(), deviceEvent.getDeviceReference()).isEmpty()) {
+            validationNotification.addError(INEXISTENT_DEVICE);
         }
     }
 
     @Override
     public List<Command> supportedCommands() {
-        return Arrays.asList(Command.CREATE);
+        return Arrays.asList(Command.UPDATE);
     }
-
 }
