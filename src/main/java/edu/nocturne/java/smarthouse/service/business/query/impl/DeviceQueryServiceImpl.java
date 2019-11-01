@@ -24,17 +24,14 @@ public class DeviceQueryServiceImpl implements DeviceQueryService {
 
     @Override
     public Device getDevice(String houseReference, String deviceReference) {
-        return deviceDao.getDevice(houseReference, deviceReference);
+        return null;
     }
 
 
     @Override
     public List<Device> getDevices(String houseReference, DeviceQueryParameters queryParameters) {
-        if (queryParameters.isEmpty()) {
-            return deviceDao.getDevices(houseReference);
-        } else {
-            return deviceDao.getFilteredDevice(houseReference, queryParameters);
-        }
+        return deviceDao.getDevices(houseReference);
+
     }
 
 
