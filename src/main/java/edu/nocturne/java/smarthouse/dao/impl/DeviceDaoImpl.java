@@ -80,12 +80,7 @@ public class DeviceDaoImpl implements DeviceDao {
 
     @Override
     public List<Device> getFilteredDevice(String houseReference, DeviceQueryParameters queryParameters) {
-        QuerySpec querySpec = new QuerySpec()
-                .withKeyConditionExpression(HOUSE_REFERENCE + EQUALS + HOUSE_REFERENCE_PARAMETER)
-                .withFilterExpression(STATE + EQUALS + STATE_PARAMETER)
-                .withValueMap(new ValueMap().withString(HOUSE_REFERENCE_PARAMETER, houseReference)
-                                            .withString(STATE_PARAMETER, queryParameters.getDeviceState().getValue()));
-        return getDevices(table.query(querySpec));
+        return null;
     }
 
     @Override
