@@ -42,7 +42,7 @@ public class DeviceDaoImpl implements DeviceDao {
         Item item = new Item().withPrimaryKey(HOUSE_REFERENCE, device.getHouseReference(),
                                               DEVICE_REFERENCE, device.getDeviceReference())
                               .withString(STATE, device.getDeviceState().getValue())
-                              .withString(DEVICE_TYPE, String.valueOf(device.getDeviceType()))
+                              .withString(DEVICE_TYPE, device.getDeviceType().getValue())
                               .withMap(DATA, device.getData());
 
         table.putItem(item);
