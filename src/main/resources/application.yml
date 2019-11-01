@@ -17,16 +17,5 @@ cloud:
       auto: false
     activeMq:
       endpoint: ssl://b-f7f494cd-efb2-4c68-b656-f70b05e8a4d8-1.mq.eu-west-1.amazonaws.com:61617
-    dynamodb:
-      endpoint: dynamodb.eu-west-1.amazonaws.com
-      tables:
-        DeviceEvents:
-          name: nocturne_device_events
-          indexes:
-            DeviceEventsHouseDeviceIndex: nocturne_houseReference-deviceReference-index
-        Devices:
-          name: nocturne_devices
-    queues:
-      DeviceEventsQueue: nocturne-EventsQueue
 server:
   port: 8090
