@@ -21,11 +21,11 @@ cloud:
       endpoint: dynamodb.eu-west-1.amazonaws.com
       tables:
         DeviceEvents:
-          name: nocturne_device_events
+          name: temp_device_events
           indexes:
-            DeviceEventsHouseDeviceIndex: nocturne_houseReference-deviceReference-index
+            DeviceEventsHouseDeviceIndex: temp_houseReference-deviceReference-index
         Devices:
-          name: nocturne_devices
+          name: temp_devices
     queues:
       DeviceEventsQueue: nocturne-EventsQueue
 server:
