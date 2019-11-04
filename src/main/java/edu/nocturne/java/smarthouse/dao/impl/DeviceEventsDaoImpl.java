@@ -1,9 +1,11 @@
 package edu.nocturne.java.smarthouse.dao.impl;
 
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ScanFilter;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.nocturne.java.smarthouse.common.type.Command;
@@ -68,6 +70,20 @@ public class DeviceEventsDaoImpl implements DeviceEventsDao {
         Iterator<Item> iterator = table.getIndex(houseDeviceIndex)
                                        .query(querySpec)
                                        .iterator();
+        return getDeviceEvents(iterator);
+    }
+
+
+    @Override
+    public List<DeviceEvent> getDevices(String houseReference, ZonedDateTime timestamp) {
+        ScanFilter houseFilter = new ScanFilter(HOUSE_REFERENCE).eq(houseReference);
+        ScanFilter timestampFilter = new ScanFilter(TIMESTAMP).lt(timestamp.toEpochSecond());
+        Iterator<Item> iterator = table.scan(houseFilter, timestampFilter)
+                                       .iterator();
+        return getDeviceEvents(iterator);
+    }
+
+    private List<DeviceEvent> getDeviceEvents(Iterator<Item> iterator) {
         List<DeviceEvent> items = new ArrayList<>();
         while (iterator.hasNext()) {
             try {

@@ -2,15 +2,20 @@ package edu.nocturne.java.smarthouse.api;
 
 import edu.nocturne.java.smarthouse.common.dto.DeviceQueryParameters;
 import edu.nocturne.java.smarthouse.common.type.DeviceState;
+import edu.nocturne.java.smarthouse.dao.DeviceEventsDao;
 import edu.nocturne.java.smarthouse.domain.Device;
 import edu.nocturne.java.smarthouse.domain.DeviceEvent;
+import edu.nocturne.java.smarthouse.service.business.command.DeviceCommandService;
 import edu.nocturne.java.smarthouse.service.business.query.DeviceQueryService;
+import edu.nocturne.java.smarthouse.service.business.replay.StateReplayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -19,15 +24,18 @@ public class DevicesRestService {
 
     private final DeviceQueryService deviceQueryService;
     private final QueueMessagingTemplate queueMessagingTemplate;
+    private final StateReplayService stateReplayService;
 
     @Value("${cloud.aws.queues.DeviceEventsQueue}")
     private String queueName;
 
     @Autowired
     public DevicesRestService(DeviceQueryService deviceQueryService,
-                              QueueMessagingTemplate queueMessagingTemplate) {
+                              QueueMessagingTemplate queueMessagingTemplate,
+                              StateReplayService stateReplayService) {
         this.deviceQueryService = deviceQueryService;
         this.queueMessagingTemplate = queueMessagingTemplate;
+        this.stateReplayService = stateReplayService;
     }
 
     @PutMapping("/devices")
@@ -49,5 +57,11 @@ public class DevicesRestService {
                                                                      .deviceState(deviceState)
                                                                      .build();
         return ResponseEntity.ok(deviceQueryService.getDevices(houseReference, queryParameters));
+    }
+
+    @GetMapping("/devicesAtTime")
+    public ResponseEntity<List<Device>> test(@RequestHeader("houseReference") String houseReference,
+                                                  @RequestParam("timestamp") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) ZonedDateTime timestamp) {
+        return ResponseEntity.ok(stateReplayService.getStateAtTime(houseReference, timestamp));
     }
 }

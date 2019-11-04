@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @Configuration
 public class AwsConfig {
 
@@ -47,6 +50,11 @@ public class AwsConfig {
         return new ActiveMQConnectionFactory(jsonObject.getString(activeMqUsername),
                                              jsonObject.getString(activeMqPassword),
                                              activeMqEndpoint);
+    }
+
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
     private JSONObject getSecret(String secretName, String region) {

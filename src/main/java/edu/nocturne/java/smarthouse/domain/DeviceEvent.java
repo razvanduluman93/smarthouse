@@ -6,6 +6,7 @@ import edu.nocturne.java.smarthouse.common.type.DeviceType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -19,6 +20,6 @@ public class DeviceEvent {
     private DeviceState deviceState;
     private DeviceType deviceType;
     private Command command;
-    private Map<String, String> deviceData;
+    private Map<String, String> deviceData = new HashMap<>();
 
 }
